@@ -54,6 +54,9 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   @Input()
   dndDragImageOffsetFunction:DndDragImageOffsetFunction = calculateDragImageOffset;
 
+  @Input()
+  forcedDraggableState?: boolean;
+
   @Output()
   readonly dndStart:EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
 
@@ -75,8 +78,10 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   @Output()
   readonly dndCanceled:EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
 
-  @HostBinding( "attr.draggable" )
-  draggable = true;
+  @HostBinding('attr.draggable')
+  get draggable() {
+    return this.forcedDraggableState === undefined ? this.canDrag : this.forcedDraggableState;
+  }
 
   private dndHandle?:DndHandleDirective;
 
@@ -85,15 +90,16 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   private dragImage:Element | undefined;
 
   private isDragStarted:boolean = false;
+  private canDrag: boolean = true;
 
   private readonly dragEventHandler:( event:DragEvent ) => void = ( event:DragEvent ) => this.onDrag( event );
 
   @Input()
   set dndDisableIf( value:boolean ) {
 
-    this.draggable = !value;
+    this.canDrag = !value;
 
-    if( this.draggable ) {
+    if( this.canDrag ) {
 
       this.renderer.removeClass( this.elementRef.nativeElement, this.dndDraggableDisabledClass );
     }
@@ -129,7 +135,7 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   @HostListener( "dragstart", [ "$event" ] )
   onDragStart( event:DndEvent ): boolean {
 
-    if( this.draggable === false ) {
+    if( this.canDrag === false ) {
 
       return false;
     }
