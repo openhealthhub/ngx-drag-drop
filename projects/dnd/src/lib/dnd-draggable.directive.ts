@@ -46,6 +46,9 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   @Input() dndDragImageOffsetFunction: DndDragImageOffsetFunction =
     calculateDragImageOffset;
 
+  @Input()
+  forcedDraggableState?: boolean;
+
   @Output() readonly dndStart: EventEmitter<DragEvent> =
     new EventEmitter<DragEvent>();
   @Output() readonly dndDrag: EventEmitter<DragEvent> =
@@ -61,21 +64,25 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   @Output() readonly dndCanceled: EventEmitter<DragEvent> =
     new EventEmitter<DragEvent>();
 
-  @HostBinding('attr.draggable') draggable = true;
+  @HostBinding('attr.draggable')
+  get draggable() {
+    return this.forcedDraggableState === undefined ? this.canDrag : this.forcedDraggableState;
+  }
 
   private dndHandle?: DndHandleDirective;
   private dndDragImageElementRef?: ElementRef;
   private dragImage: Element | undefined;
   private isDragStarted: boolean = false;
+  private canDrag: boolean = true;
 
   private elementRef: ElementRef<HTMLElement> = inject(ElementRef);
   private renderer = inject(Renderer2);
   private ngZone = inject(NgZone);
 
   @Input() set dndDisableIf(value: boolean) {
-    this.draggable = !value;
+    this.canDrag = !value;
 
-    if (this.draggable) {
+    if (this.canDrag) {
       this.renderer.removeClass(
         this.elementRef.nativeElement,
         this.dndDraggableDisabledClass
@@ -112,7 +119,7 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   }
 
   @HostListener('dragstart', ['$event']) onDragStart(event: DndEvent): boolean {
-    if (!this.draggable) {
+    if (!this.canDrag) {
       return false;
     }
 
