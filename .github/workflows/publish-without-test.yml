@@ -1,0 +1,39 @@
+name: Release without test
+
+on:
+  pull_request:
+    types: [synchronize]
+  workflow_dispatch:
+  push:
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+          cache: 'npm'
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@openhealthhub"
+
+      - name: Install
+        run: |
+          npm i
+          cd projects/dnd
+          npm i
+          cd ../..
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          npm run build:lib && npm run publish:next
