@@ -1,10 +1,10 @@
 {
-  "name": "ngx-drag-drop",
+  "name": "@openhealthhub/ngx-drag-drop",
   "version": "16.0.0",
   "description": "Angular directives using the native HTML Drag And Drop API",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/reppners/ngx-drag-drop.git"
+  "repository": "https://github.com/openhealthhub/storybook.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   },
   "homepage": "https://reppners.github.io/ngx-drag-drop/",
   "author": {
