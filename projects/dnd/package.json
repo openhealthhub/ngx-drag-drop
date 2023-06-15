@@ -2,7 +2,7 @@
   "name": "@openhealthhub/ngx-drag-drop",
   "version": "13.0.1",
   "description": "Angular directives using the native HTML Drag And Drop API",
-  "repository": "https://github.com/openhealthhub/storybook.git",
+  "repository": "https://github.com/openhealthhub/ngx-drag-drop.git",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
