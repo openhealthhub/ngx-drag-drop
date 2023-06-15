@@ -1,6 +1,6 @@
 {
   "name": "@openhealthhub/ngx-drag-drop",
-  "version": "16.0.0",
+  "version": "19.0.0",
   "description": "Angular directives using the native HTML Drag And Drop API",
   "repository": "https://github.com/openhealthhub/storybook.git",
   "publishConfig": {
@@ -30,8 +30,8 @@
     "touch"
   ],
   "peerDependencies": {
-    "@angular/common": "^16.0.0",
-    "@angular/core": "^16.0.0"
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

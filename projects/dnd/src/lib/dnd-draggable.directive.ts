@@ -25,7 +25,7 @@ import {
   setDragImage,
 } from './dnd-utils';
 
-@Directive({ selector: '[dndDragImageRef]' })
+@Directive({ selector: '[dndDragImageRef]', standalone: true })
 export class DndDragImageRefDirective implements OnInit {
   dndDraggableDirective = inject(forwardRef(() => DndDraggableDirective));
   elementRef: ElementRef<HTMLElement> = inject(ElementRef);
@@ -35,7 +35,7 @@ export class DndDragImageRefDirective implements OnInit {
   }
 }
 
-@Directive({ selector: '[dndDraggable]' })
+@Directive({ selector: '[dndDraggable]', standalone: true })
 export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   @Input() dndDraggable: any;
   @Input() dndEffectAllowed: EffectAllowed = 'copy';
@@ -170,7 +170,9 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
     event.stopPropagation();
 
     setTimeout(() => {
-      this.renderer.setStyle(this.dragImage, 'pointer-events', 'none');
+      if(this.isDragStarted) {
+        this.renderer.setStyle(this.dragImage, 'pointer-events', 'none');
+      }
     }, 100);
 
     return true;
@@ -181,6 +183,9 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   }
 
   @HostListener('dragend', ['$event']) onDragEnd(event: DragEvent) {
+    if (!this.draggable || !this.isDragStarted) {
+      return;
+    }
     // get drop effect from custom stored state as its not reliable across browsers
     const dropEffect = dndState.dropEffect;
 
