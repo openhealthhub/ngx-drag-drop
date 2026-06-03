@@ -183,7 +183,7 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
   }
 
   @HostListener('dragend', ['$event']) onDragEnd(event: DragEvent) {
-    if (!this.draggable || !this.isDragStarted) {
+    if (!this.isDragStarted) {
       return;
     }
     // get drop effect from custom stored state as its not reliable across browsers
