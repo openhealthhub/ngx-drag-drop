@@ -170,7 +170,7 @@ export class DndDraggableDirective implements AfterViewInit, OnDestroy {
     event.stopPropagation();
 
     setTimeout(() => {
-      if(this.isDragStarted) {
+      if (this.isDragStarted) {
         this.renderer.setStyle(this.dragImage, 'pointer-events', 'none');
       }
     }, 100);

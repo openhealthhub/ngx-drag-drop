@@ -1,4 +1,7 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -6,6 +9,7 @@ import { MatLineModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -43,6 +47,14 @@ const routes: Routes = [
     loadComponent: () => import('./typed/typed.component'),
   },
   {
+    path: 'shadow-dom',
+    loadComponent: () => import('./shadow-dom/shadow-dom.component'),
+  },
+  {
+    path: 'issue/195',
+    loadComponent: () => import('./issue-195/issue-195.component'),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'simple',
@@ -55,20 +67,27 @@ const routes: Routes = [
 })
 export class AppRoutingModule {}
 
-@NgModule({ declarations: [AppComponent],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        DndModule,
-        MatButtonModule,
-        MatInputModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatSnackBarModule,
-        MatSlideToggleModule,
-        MatIconModule,
-        MatTabsModule,
-        AppRoutingModule,
-        MatLineModule,
-        MatListModule,
-        DemoLinkComponent], providers: [provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [AppComponent],
+  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    DndModule,
+    MatButtonModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatMenuModule,
+    MatTabsModule,
+    AppRoutingModule,
+    MatLineModule,
+    MatListModule,
+    DemoLinkComponent,
+  ],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
+})
 export class AppModule {}

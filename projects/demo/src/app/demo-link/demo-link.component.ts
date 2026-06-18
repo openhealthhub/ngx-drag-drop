@@ -13,6 +13,6 @@ export class DemoLinkComponent {
   name: string | null = null;
 
   public get url(): string {
-    return `https://github.com/reppners/ngx-drag-drop/tree/master/projects/demo/src/app/${this.name}`;
+    return `https://github.com/ChristofFritz/ngx-drag-drop/tree/master/projects/demo/src/app/${this.name}`;
   }
 }

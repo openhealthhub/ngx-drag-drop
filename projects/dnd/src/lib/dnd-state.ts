@@ -4,8 +4,6 @@ import {
   DROP_EFFECTS,
   filterEffects,
   getWellKnownMimeType,
-  JSON_MIME_TYPE,
-  MSIE_MIME_TYPE,
 } from './dnd-utils';
 
 export interface DndState {
@@ -100,11 +98,7 @@ export function getDndType(event: DragEvent): string | undefined {
     return undefined;
   }
 
-  if (mimeType === MSIE_MIME_TYPE || mimeType === JSON_MIME_TYPE) {
-    return undefined;
-  }
-
-  return mimeType.substr(CUSTOM_MIME_TYPE.length + 1) || undefined;
+  return mimeType.substring(CUSTOM_MIME_TYPE.length + 1) || undefined;
 }
 
 export function isExternalDrag(): boolean {

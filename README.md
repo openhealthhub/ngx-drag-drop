@@ -1,15 +1,17 @@
 [![npm](https://img.shields.io/npm/v/ngx-drag-drop.svg)](https://www.npmjs.com/package/ngx-drag-drop)
 [![npm (next)](https://img.shields.io/npm/v/ngx-drag-drop/next.svg)](https://www.npmjs.com/package/ngx-drag-drop)
 [![NpmLicense](https://img.shields.io/npm/l/ngx-drag-drop.svg)](https://www.npmjs.com/package/ngx-drag-drop)
-[![GitHub issues](https://img.shields.io/github/issues/reppners/ngx-drag-drop.svg)](https://github.com/reppners/ngx-drag-drop/issues)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/reppners/ngx-drag-drop.svg?style=social)](https://twitter.com/intent/tweet?text=Angular%20drag%20and%20drop%20with%20ease:&url=https://github.com/reppners/ngx-drag-drop)
+[![GitHub issues](https://img.shields.io/github/issues/ChristofFritz/ngx-drag-drop.svg)](https://github.com/ChristofFritz/ngx-drag-drop/issues)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ChristofFritz/ngx-drag-drop.svg?style=social)](https://twitter.com/intent/tweet?text=Angular%20drag%20and%20drop%20with%20ease:&url=https://github.com/ChristofFritz/ngx-drag-drop)
 
 # NgxDragDrop
 
-[_Demo_](https://reppners.github.io/ngx-drag-drop/) / [_StackBlitz Issue Template_](https://stackblitz.com/edit/ngx-drag-drop-issue-template)
+[_Demo_](https://christoffritz.github.io/ngx-drag-drop/) / [_StackBlitz Issue Template_](https://stackblitz.com/edit/ngx-drag-drop-issue-template)
 
 ```sh
-npm install ngx-drag-drop --save
+npm install ngx-drag-drop
+# or
+pnpm add ngx-drag-drop
 ```
 
 **Angular directives for declarative drag and drop using the HTML5 Drag-And-Drop API**
@@ -28,6 +30,24 @@ Port of [angular-drag-drop-lists](https://github.com/marceljuenemann/angular-dra
 
 This has `dropzones` though :+1:
 The idea is that the directive does not handle lists internally so the `dndDropzone` can be general purpose.
+
+## Angular Version Compatibility
+
+Starting with v13, the library major version matches the Angular major version.
+
+| Angular | ngx-drag-drop |
+| ------- | ------------- |
+| 21.x    | 21.x          |
+| 20.x    | 20.x          |
+| 19.x    | 19.x          |
+| 18.x    | 18.x          |
+| 17.x    | 17.x          |
+| 16.x    | 16.x          |
+| 15.x    | 15.x          |
+| 14.x    | 14.x          |
+| 13.x    | 13.x          |
+
+For older Angular versions (v4–v12), use ngx-drag-drop v2.x.
 
 ## Usage
 
@@ -291,31 +311,20 @@ export declare class DndDropzoneDirective {
 }
 ```
 
-## Touch support
+## Touch support (experimental)
 
-Install the `mobile-drag-drop` module available on npm.
+This library uses the native HTML5 Drag and Drop API, which is **not supported on most mobile browsers** (including iOS Safari). Touch support requires a polyfill that translates touch events into drag events. This approach has known limitations and the experience may not be reliable on all devices.
 
-Add the following lines to your js code
+To enable basic touch support, install the `@dragdroptouch/drag-drop-touch` polyfill:
 
 ```JS
-import { polyfill } from 'mobile-drag-drop';
-// optional import of scroll behaviour
-import { scrollBehaviourDragImageTranslateOverride } from "mobile-drag-drop/scroll-behaviour";
+import { enableDragDropTouch } from "@dragdroptouch/drag-drop-touch";
 
-polyfill( {
-  // use this to make use of the scroll behaviour
-  dragImageTranslateOverride: scrollBehaviourDragImageTranslateOverride
-} );
-
-// workaround to make scroll prevent work in iOS Safari >= 10
-try {
-  window.addEventListener( "touchmove", function() { }, { passive: false } );
-}
-catch(e){}
+enableDragDropTouch();
 ```
 
 For more info on the polyfill check it out on GitHub
-https://github.com/timruffles/mobile-drag-drop
+https://github.com/drag-drop-touch-js/dragdroptouch
 
 ## Known issues
 
@@ -341,23 +350,22 @@ See https://angular.io/guide/creating-libraries
 
 #### Edit Library
 
-- run `npm run watch:lib` for hacking on library
+- run `pnpm run watch:lib` for hacking on library
 
 #### Release Library
 
 - assure correct version is set in `projects/dnd/package.json`
-- build library with `npm run build:lib`
-- publish library with `npm run publish:stable` (use `npm run publish:next` for pre-releases)
+- build library with `pnpm run build:lib`
+- publish library with `pnpm run publish:stable` (use `pnpm run publish:next` for pre-releases)
 
 #### Edit Docs
 
-- initially and on lib changes run `npm run build:lib` to current version of lib available to the demo
-- run `npm run start:docs`
+- initially and on lib changes run `pnpm run build:lib` to current version of lib available to the demo
+- run `pnpm run start:docs`
 
 #### Release Docs
 
-- build docs site with `npm run build:docs`
-- commit and push changes in `docs` to `master`
+The demo site is automatically deployed to GitHub Pages on every push to `master` via GitHub Actions.
 
 ---
 

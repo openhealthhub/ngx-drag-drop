@@ -18,28 +18,17 @@ export type DndDragImageOffsetFunction = (
 export const DROP_EFFECTS = ['move', 'copy', 'link'] as DropEffect[];
 
 export const CUSTOM_MIME_TYPE = 'application/x-dnd';
-export const JSON_MIME_TYPE = 'application/json';
-export const MSIE_MIME_TYPE = 'Text';
 
 function mimeTypeIsCustom(mimeType: string) {
-  return mimeType.substr(0, CUSTOM_MIME_TYPE.length) === CUSTOM_MIME_TYPE;
+  return mimeType.substring(0, CUSTOM_MIME_TYPE.length) === CUSTOM_MIME_TYPE;
 }
 
 export function getWellKnownMimeType(event: DragEvent): string | null {
   if (event.dataTransfer) {
     const types = event.dataTransfer.types;
 
-    // IE 9 workaround.
-    if (!types) {
-      return MSIE_MIME_TYPE;
-    }
-
     for (let i = 0; i < types.length; i++) {
-      if (
-        types[i] === MSIE_MIME_TYPE ||
-        types[i] === JSON_MIME_TYPE ||
-        mimeTypeIsCustom(types[i])
-      ) {
+      if (mimeTypeIsCustom(types[i])) {
         return types[i];
       }
     }
@@ -53,56 +42,31 @@ export function setDragData(
   data: DragDropData,
   effectAllowed: EffectAllowed
 ): void {
-  // Internet Explorer and Microsoft Edge don't support custom mime types, see design doc:
-  // https://github.com/marceljuenemann/angular-drag-and-drop-lists/wiki/Data-Transfer-Design
   const mimeType = CUSTOM_MIME_TYPE + (data.type ? '-' + data.type : '');
 
   const dataString = JSON.stringify(data);
 
-  try {
-    event.dataTransfer?.setData(mimeType, dataString);
-  } catch (e) {
-    //   Setting a custom MIME type did not work, we are probably in IE or Edge.
-    try {
-      event.dataTransfer?.setData(JSON_MIME_TYPE, dataString);
-    } catch (e) {
-      //   We are in Internet Explorer and can only use the Text MIME type. Also note that IE
-      //   does not allow changing the cursor in the dragover event, therefore we have to choose
-      //   the one we want to display now by setting effectAllowed.
-      const effectsAllowed = filterEffects(DROP_EFFECTS, effectAllowed);
-      if (event.dataTransfer) {
-        event.dataTransfer.effectAllowed = effectsAllowed[0];
-      }
-
-      event.dataTransfer?.setData(MSIE_MIME_TYPE, dataString);
-    }
-  }
+  event.dataTransfer?.setData(mimeType, dataString);
 }
 
 export function getDropData(
   event: DragEvent,
   dragIsExternal: boolean
 ): DragDropData {
-  // check if the mime type is well known
   const mimeType = getWellKnownMimeType(event);
 
-  // drag did not originate from [dndDraggable]
   if (dragIsExternal === true) {
     if (mimeType !== null && mimeTypeIsCustom(mimeType)) {
-      // the type of content is well known and safe to handle
       return JSON.parse(event.dataTransfer?.getData(mimeType) ?? '{}');
     }
 
-    // the contained data is unknown, let user handle it
     return {};
   }
 
   if (mimeType !== null) {
-    // the type of content is well known and safe to handle
     return JSON.parse(event.dataTransfer?.getData(mimeType) ?? '{}');
   }
 
-  // the contained data is unknown, let user handle it
   return {};
 }
 

@@ -1,0 +1,33 @@
+<ng-template #recursiveList let-list>
+  <div class="placeholder" dndPlaceholderRef></div>
+
+  @for (item of list; track item) {
+    <div
+      [dndDraggable]="item"
+      dndEffectAllowed="move"
+      (dndMoved)="onDragged(item, list, 'move')"
+      class="drag-item">
+      <div class="drag-item-header">{{ item.content }}</div>
+      @if (item.children) {
+        <div
+          (dndDrop)="onDrop($event, item.children)"
+          class="nested-dropzone"
+          dndDropzone>
+          <ng-container
+            *ngTemplateOutlet="
+              recursiveList;
+              context: { $implicit: item.children }
+            "></ng-container>
+        </div>
+      }
+    </div>
+  }
+</ng-template>
+
+<div (dndDrop)="onDrop($event, nestableList)" class="root-dropzone" dndDropzone>
+  <ng-container
+    *ngTemplateOutlet="
+      recursiveList;
+      context: { $implicit: nestableList }
+    "></ng-container>
+</div>

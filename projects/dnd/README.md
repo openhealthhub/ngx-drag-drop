@@ -1,15 +1,19 @@
 [![npm](https://img.shields.io/npm/v/ngx-drag-drop.svg)](https://www.npmjs.com/package/ngx-drag-drop)
 [![npm (next)](https://img.shields.io/npm/v/ngx-drag-drop/next.svg)](https://www.npmjs.com/package/ngx-drag-drop)
 [![NpmLicense](https://img.shields.io/npm/l/ngx-drag-drop.svg)](https://www.npmjs.com/package/ngx-drag-drop)
-[![GitHub issues](https://img.shields.io/github/issues/reppners/ngx-drag-drop.svg)](https://github.com/reppners/ngx-drag-drop/issues)
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/reppners/ngx-drag-drop.svg?style=social)](https://twitter.com/intent/tweet?text=Angular%20drag%20and%20drop%20with%20ease:&url=https://github.com/reppners/ngx-drag-drop)
+[![GitHub issues](https://img.shields.io/github/issues/ChristofFritz/ngx-drag-drop.svg)](https://github.com/ChristofFritz/ngx-drag-drop/issues)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ChristofFritz/ngx-drag-drop.svg?style=social)](https://twitter.com/intent/tweet?text=Angular%20drag%20and%20drop%20with%20ease:&url=https://github.com/ChristofFritz/ngx-drag-drop)
 
 # NgxDragDrop
 
-[_Demo_](https://reppners.github.io/ngx-drag-drop/) / [_StackBlitz Issue
+[_Demo_](https://christoffritz.github.io/ngx-drag-drop/) / [_StackBlitz Issue
 Template_](https://stackblitz.com/edit/ngx-drag-drop-issue-template)
 
-`npm install ngx-drag-drop --save`
+```sh
+npm install ngx-drag-drop
+# or
+pnpm add ngx-drag-drop
+```
 
 **Angular directives for declarative drag and drop using the HTML5 Drag-And-Drop API**
 
@@ -27,6 +31,24 @@ Port of [angular-drag-drop-lists](https://github.com/marceljuenemann/angular-dra
 
 This has `dropzones` though :+1:
 The idea is that the directive does not handle lists internally so the `dndDropzone` can be general purpose.
+
+## Angular Version Compatibility
+
+Starting with v13, the library major version matches the Angular major version.
+
+| Angular | ngx-drag-drop |
+| ------- | ------------- |
+| 21.x    | 21.x          |
+| 20.x    | 20.x          |
+| 19.x    | 19.x          |
+| 18.x    | 18.x          |
+| 17.x    | 17.x          |
+| 16.x    | 16.x          |
+| 15.x    | 15.x          |
+| 14.x    | 14.x          |
+| 13.x    | 13.x          |
+
+For older Angular versions (v4–v12), use ngx-drag-drop v2.x.
 
 ## Usage
 

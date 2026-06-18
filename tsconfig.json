@@ -2,7 +2,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -14,17 +13,16 @@
     "sourceMap": true,
     "paths": {
       "ngx-drag-drop": [
-        "dist/ngx-drag-drop/ngx-drag-drop",
-        "dist/ngx-drag-drop"
+        "./dist/ngx-drag-drop/ngx-drag-drop",
+        "./dist/ngx-drag-drop"
       ]
     },
     "declaration": false,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "es2022",
-    "module": "es2022",
-    "lib": ["es2022", "dom"]
+    "module": "es2022"
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

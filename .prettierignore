@@ -40,6 +40,8 @@ chrome-profiler-events*.json
 /coverage
 /libpeerconnection.log
 npm-debug.log
+pnpm-debug.log
+pnpm-lock.yaml
 yarn-error.log
 testem.log
 /typings
