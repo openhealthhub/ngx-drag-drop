@@ -27,9 +27,9 @@ jobs:
 
       - name: Install
         run: |
-          pnpm ci
+          pnpm install --frozen-lockfile
           cd projects/dnd
-          pnpm ci
+          pnpm install --frozen-lockfile
           cd ../..
 
       - name: Create Release
