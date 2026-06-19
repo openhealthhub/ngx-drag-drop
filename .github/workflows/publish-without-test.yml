@@ -16,19 +16,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Use Node.js 20.x
+      - name: Use Node.js 22.x
         uses: actions/setup-node@v1
         with:
-          node-version: 20.x
+          node-version: 22.x
           cache: 'npm'
           registry-url: "https://npm.pkg.github.com"
           scope: "@openhealthhub"
 
       - name: Install
         run: |
-          npm i
+          npm ci
           cd projects/dnd
-          npm i
+          npm ci
           cd ../..
 
       - name: Create Release
